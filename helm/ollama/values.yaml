@@ -41,7 +41,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 # -- String to fully override namespace
-namespaceOverride: ""
+namespaceOverride: "real-estate"
 
 # Ollama parameters
 ollama:
@@ -50,7 +50,7 @@ ollama:
 
   gpu:
     # -- Enable GPU integration
-    enabled: false
+    enabled: true
 
     # -- Enable DRA GPU integration
     # If enabled, it will use DRA instead of Device Driver Plugin and create a ResourceClaim and GpuClaimParameters
@@ -94,13 +94,13 @@ ollama:
     # pull:
     #  - llama2
     #  - mistral
-    pull: []
+    pull: ["qwen2.5:7b"]
 
     # -- List of models to load in memory at container startup
     # run:
     #  - llama2
     #  - mistral
-    run: []
+    run: ["lab-qwen-32k"]
 
     # -- List of models to create at container startup, there are two options
     # 1. Create a raw model
@@ -113,7 +113,10 @@ ollama:
     #    template: |
     #      FROM llama3.1
     #      PARAMETER num_ctx 32768
-    create: []
+    create: [{
+      "name": "lab-qwen-32k",
+      "template": "FROM qwen2.5:7b\nPARAMETER num_ctx 32768\nPARAMETER temperature 0.7\n" 
+    }]
 
     # -- Automatically remove models present on the disk but not specified in the values file
     clean: false
@@ -234,7 +237,11 @@ ingress:
 # ref: http://kubernetes.io/docs/user-guide/compute-resources/
 resources:
   # -- Pod requests
-  requests: {}
+  requests: {
+    "memory": "6144Mi",
+    "cpu": "4000m",
+    "://nvidia.com": 1
+  }
     # Memory request
     # memory: 4096Mi
 
@@ -242,7 +249,11 @@ resources:
     # cpu: 2000m
 
   # -- Pod limit
-  limits: {}
+  limits: {
+    "memory": "12288Mi",
+    "cpu": "8000m",
+    "://nvidia.com": 1
+  }
     # Memory limit
     # memory: 8192Mi
 
@@ -344,7 +355,7 @@ extraEnvFrom: []
 # ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
 persistentVolume:
   # -- Enable persistence using PVC
-  enabled: false
+  enabled: true
 
   # -- Ollama server data Persistent Volume access modes
   # Must match those of existing PV or dynamic provisioner
@@ -361,7 +372,7 @@ persistentVolume:
   existingClaim: ""
 
   # -- Ollama server data Persistent Volume size
-  size: 30Gi
+  size: 100Gi
 
   # -- Ollama server data Persistent Volume Storage Class
   # If defined, storageClassName: <storageClass>
@@ -369,7 +380,7 @@ persistentVolume:
   # If undefined (the default) or set to null, no storageClassName spec is
   # set, choosing the default provisioner.  (gp2 on AWS, standard on
   # GKE, AWS & OpenStack)
-  storageClass: ""
+  storageClass: "local-storage"
 
   # -- Ollama server data Persistent Volume Binding Mode
   # If defined, volumeMode: <volumeMode>
@@ -384,7 +395,7 @@ persistentVolume:
   # -- Pre-existing PV to attach this claim to
   # Useful if a CSI auto-provisions a PV for you and you want to always
   # reference the PV moving forward
-  volumeName: ""
+  volumeName: "ollama-real-estate-pv"
 
 # -- Node labels for pod assignment.
 nodeSelector: {}
