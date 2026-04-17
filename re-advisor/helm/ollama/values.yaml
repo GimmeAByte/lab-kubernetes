@@ -41,7 +41,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 # -- String to fully override namespace
-namespaceOverride: "real-estate"
+namespaceOverride: "re-advisor"
 
 # Ollama parameters
 ollama:
@@ -395,7 +395,7 @@ persistentVolume:
   # -- Pre-existing PV to attach this claim to
   # Useful if a CSI auto-provisions a PV for you and you want to always
   # reference the PV moving forward
-  volumeName: "real-estate-ollama-pv"
+  volumeName: "re-advisor-ollama-pv"
 
 # -- Node labels for pod assignment.
 nodeSelector: {}
