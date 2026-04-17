@@ -9,12 +9,12 @@ nameOverride: ""
 fullnameOverride: ""
 
 # -- Provide a namespace in place of the default release namespace
-namespaceOverride: ""
+namespaceOverride: "real-estate"
 
 ollama:
   # -- Automatically install Ollama Helm chart from https://otwld.github.io/ollama-helm/. Use [Helm Values](https://github.com/otwld/ollama-helm/#helm-values) to configure
   # @section -- External Tools configuration
-  enabled: true
+  enabled: false
   # -- Override the Ollama subchart name. If not set, uses the release name with '-ollama' suffix for multiple instance support
   # @section -- External Tools configuration
   fullnameOverride: ""
@@ -45,7 +45,7 @@ ollamaUrlsFromExtraEnv: false
 pipelines:
   # -- Automatically install Pipelines chart to extend Open WebUI functionality using Pipelines: https://github.com/open-webui/pipelines
   # @section -- External Tools configuration
-  enabled: true
+  enabled: false
   # -- Override the Pipelines subchart name. If not set, uses the release name with '-pipelines' suffix for multiple instance support
   # @section -- External Tools configuration
   fullnameOverride: ""
@@ -69,7 +69,7 @@ websocket:
   enabled: true
   # -- Specifies the websocket manager to use with env `WEBSOCKET_MANAGER`: redis (default)
   # @section -- Websocket configuration
-  manager: redis
+  manager: redis 
   # -- Override the Redis URL for websocket communication. If empty, automatically generates URL based on release name. Template: `redis://[:<password>@]<hostname>:<port>/<db>`
   # @section -- Websocket configuration
   url: ""
@@ -384,7 +384,7 @@ persistence:
   enabled: true
   # -- Size of the Open WebUI PVC
   # @section -- Persistence configuration
-  size: 2Gi
+  size: 50Gi
   # -- Use existingClaim if you want to re-use an existing Open WebUI PVC instead of creating a new one
   # @section -- Persistence configuration
   existingClaim: ""
@@ -397,10 +397,10 @@ persistence:
     - ReadWriteOnce
   # -- Storage class of the Open WebUI PVC
   # @section -- Persistence configuration
-  storageClass: ""
+  storageClass: "local-storage"
   # -- Selector to match to get the volume bound to the claim
   # @section -- Persistence configuration
-  selector: {}
+  selector: {"matchLabels": {"app.kubernetes.io/instance": "re-advisor", "storage.role": "data-store"}}
   # -- Additional annotations to add to the PVC
   # @section -- Persistence configuration
   annotations: {}
@@ -551,7 +551,13 @@ openaiApiKeysExistingSecretKey: ""
 databaseUrl: ""
 
 # -- Env vars added to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration. Variables can be defined as list or map style.
-extraEnvVars: []
+extraEnvVars: 
+  - name: WEBUI_URL
+    value: "https://192.168.1.164/re-advisor"
+  - name: ENABLE_PERSISTENT_CONFIG
+    value: "False"
+  - name: ENABLE_USAGE_POOL_CLEANUP
+    value: "False"
   # - name: OPENAI_API_KEY
   #   valueFrom:
   #     secretKeyRef:
