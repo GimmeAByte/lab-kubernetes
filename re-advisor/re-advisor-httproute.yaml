@@ -1,8 +1,8 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: re-advisor-route
-  namespace: real-estate
+  name: re-advisor-httproute
+  namespace: re-advisor
 spec:
   parentRefs:
   - name: lab-gateway

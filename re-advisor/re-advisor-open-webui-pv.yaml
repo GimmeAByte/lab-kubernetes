@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: real-estate-open-webui-pv # This is the unique name for this disk in your cluster
+  name: re-advisor-open-webui-pv # This is the unique name for this disk in your cluster
 spec:
   capacity:
     storage: 50Gi
@@ -12,7 +12,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage # This label connects it to your PVC in values.yaml
   local:
-    path: /var/lib/real-estate-data/open-webui # The exact path to your new LVM mount
+    path: /var/lib/re-advisor-data/open-webui # The exact path to your new LVM mount
   nodeAffinity:
     required:
       nodeSelectorTerms:
