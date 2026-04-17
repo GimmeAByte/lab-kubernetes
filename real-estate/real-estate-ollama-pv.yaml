@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: ollama-real-estate-pv # This is the unique name for this disk in your cluster
+  name: real-estate-ollama-pv # This is the unique name for this disk in your cluster
 spec:
   capacity:
-    storage: 100Gi # Matches the 100GB LVM volume you carved out
+    storage: 50Gi # Matches the 100GB LVM volume you carved out
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
@@ -12,7 +12,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain 
   storageClassName: local-storage # This label connects it to your PVC in values.yaml
   local:
-    path: /var/lib/ollama/real-estate-data # The exact path to your new LVM mount
+    path: /var/lib/real-estate-data/ollama # The exact path to your new LVM mount
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -20,4 +20,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - lab-alieneware # Pins this volume to the hardware where it physically exists
+          - lab-alienware # Pins this volume to the hardware where it physically exists

@@ -240,7 +240,7 @@ resources:
   requests: {
     "memory": "6144Mi",
     "cpu": "4000m",
-    "://nvidia.com": 1
+    "nvidia.com/gpu": 1
   }
     # Memory request
     # memory: 4096Mi
@@ -252,7 +252,7 @@ resources:
   limits: {
     "memory": "12288Mi",
     "cpu": "8000m",
-    "://nvidia.com": 1
+    "nvidia.com/gpu": 1
   }
     # Memory limit
     # memory: 8192Mi
@@ -372,7 +372,7 @@ persistentVolume:
   existingClaim: ""
 
   # -- Ollama server data Persistent Volume size
-  size: 100Gi
+  size: 50Gi
 
   # -- Ollama server data Persistent Volume Storage Class
   # If defined, storageClassName: <storageClass>
@@ -395,7 +395,7 @@ persistentVolume:
   # -- Pre-existing PV to attach this claim to
   # Useful if a CSI auto-provisions a PV for you and you want to always
   # reference the PV moving forward
-  volumeName: "ollama-real-estate-pv"
+  volumeName: "real-estate-ollama-pv"
 
 # -- Node labels for pod assignment.
 nodeSelector: {}
