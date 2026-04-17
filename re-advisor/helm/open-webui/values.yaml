@@ -9,7 +9,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 # -- Provide a namespace in place of the default release namespace
-namespaceOverride: "real-estate"
+namespaceOverride: "re-advisor"
 
 ollama:
   # -- Automatically install Ollama Helm chart from https://otwld.github.io/ollama-helm/. Use [Helm Values](https://github.com/otwld/ollama-helm/#helm-values) to configure
@@ -553,9 +553,7 @@ databaseUrl: ""
 # -- Env vars added to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration. Variables can be defined as list or map style.
 extraEnvVars: 
   - name: WEBUI_URL
-    value: "https://192.168.1.164/re-advisor"
-  - name: WEBUI_CONTEXT_PATH
-    value: "/re-advisor"
+    value: "https://re-advisor.stark.labs"
   - name: ENABLE_PERSISTENT_CONFIG
     value: "False"
   - name: ENABLE_USAGE_POOL_CLEANUP
