@@ -94,13 +94,13 @@ ollama:
     # pull:
     #  - llama2
     #  - mistral
-    pull: ["qwen2.5:7b"]
+    pull: []
 
     # -- List of models to load in memory at container startup
     # run:
     #  - llama2
     #  - mistral
-    run: ["lab-qwen-32k"]
+    run: []
 
     # -- List of models to create at container startup, there are two options
     # 1. Create a raw model
@@ -113,10 +113,7 @@ ollama:
     #    template: |
     #      FROM llama3.1
     #      PARAMETER num_ctx 32768
-    create: [{
-      "name": "lab-qwen-32k",
-      "template": "FROM qwen2.5:7b\nPARAMETER num_ctx 32768\nPARAMETER temperature 0.7\n" 
-    }]
+    create: []
 
     # -- Automatically remove models present on the disk but not specified in the values file
     clean: false
