@@ -235,7 +235,7 @@ ingress:
 resources:
   # -- Pod requests
   requests: {
-    "memory": "6144Mi",
+    "memory": "12288Mi",
     "cpu": "4000m",
     "nvidia.com/gpu": 1
   }
@@ -247,7 +247,7 @@ resources:
 
   # -- Pod limit
   limits: {
-    "memory": "12288Mi",
+    "memory": "20480Mi",
     "cpu": "8000m",
     "nvidia.com/gpu": 1
   }
