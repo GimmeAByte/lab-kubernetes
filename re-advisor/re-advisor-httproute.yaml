@@ -8,7 +8,7 @@ spec:
   - name: lab-gateway
     namespace: nginx-gateway
   hostnames:
-  - "re-advisor.stark.labs" # <--- The VIP Subdomain
+  - "re-advisor.ui.stark.labs" 
   rules:
   - matches:
     - path:
