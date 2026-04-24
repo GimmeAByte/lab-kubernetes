@@ -553,7 +553,7 @@ databaseUrl: ""
 # -- Env vars added to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration. Variables can be defined as list or map style.
 extraEnvVars: 
   - name: WEBUI_URL
-    value: "https://re-advisor.stark.labs"
+    value: "https://re-advisor.ui.stark.labs"
   - name: ENABLE_PERSISTENT_CONFIG
     value: "False"
   - name: ENABLE_USAGE_POOL_CLEANUP
