@@ -478,9 +478,9 @@ server:
   ## hostAliases allows adding entries to /etc/hosts inside the containers
   hostAliases:
     - ip: "192.168.1.163"
-      hostnames: ["lab-alienware.stark.labs"]
+      hostnames: ["lab-alienware.infra.stark.labs"]
     - ip: "192.168.1.164"
-      hostnames: ["lab-pi.stark.labs"]
+      hostnames: ["lab-pi.infra.stark.labs"]
   #   - ip: "127.0.0.1"
   #     hostnames:
   #       - "example.com"
@@ -1103,8 +1103,8 @@ extraScrapeConfigs: |
       key_file: /etc/prometheus/certs/client.key
     static_configs:
       - targets:
-        - 'lab-alienware.stark.labs:9100'
-        - 'lab-pi.stark.labs:9100'
+        - 'lab-alienware.infra.stark.labs:9100'
+        - 'lab-pi.infra.stark.labs:9100'
 
   # - job_name: 'prometheus-blackbox-exporter'
   #   metrics_path: /probe
