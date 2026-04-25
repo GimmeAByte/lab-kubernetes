@@ -1,0 +1,12 @@
+# Default values for gpu-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+driver:
+  enabled: false
+  nvidiaDriverCRD:
+    enabled: false
+    deployDefaultCR: true
+    driverType: gpu
+    nodeSelector: {}
+  kernelModuleType: "auto"

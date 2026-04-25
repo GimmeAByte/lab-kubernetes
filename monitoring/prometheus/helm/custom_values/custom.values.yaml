@@ -1,0 +1,56 @@
+server:
+  extraSecretMounts:
+    - name: mtls-client-certs
+      mountPath: /etc/prometheus/certs
+      readOnly: true 
+      secretName: prometheus-client-certs
+    # - name: secret-files
+    #   mountPath: /etc/secrets
+    #   subPath: ""
+    #   secretName: prom-secret-files
+    #   readOnly: true
+
+
+  ## hostAliases allows adding entries to /etc/hosts inside the containers
+  hostAliases:
+    - ip: "192.168.1.163"
+      hostnames: ["lab-alienware.infra.stark.labs"]
+    - ip: "192.168.1.164"
+      hostnames: ["lab-pi.infra.stark.labs"]
+  #   - ip: "127.0.0.1"
+  #     hostnames:
+  #       - "example.com"
+
+
+  persistentVolume:
+    ## If true, Prometheus server will create/use a Persistent Volume Claim
+    ## If false, use emptyDir
+    ##
+    enabled: false
+
+scrapeConfigs:
+  kubernetes-nodes:
+    enabled: false
+
+
+extraScrapeConfigs: |
+  - job_name: 'nodes-mtls'
+    scheme: https
+    tls_config:
+      ca_file: /etc/prometheus/certs/ca.crt
+      cert_file: /etc/prometheus/certs/client.crt
+      key_file: /etc/prometheus/certs/client.key
+    static_configs:
+      - targets:
+        - 'lab-alienware.infra.stark.labs:9100'
+        - 'lab-pi.infra.stark.labs:9100'
+
+prometheus-node-exporter:
+  ## If false, node-exporter will not be installed
+  ##
+  enabled: false
+
+prometheus-pushgateway:
+  ## If false, pushgateway will not be installed
+  ##
+  enabled: false

@@ -1,0 +1,43 @@
+replicaCount: 1
+namespaceOverride: "re-advisor"
+ollama:
+  gpu:
+    enabled: true
+    number: 1
+
+serviceAccount:
+  create: true
+
+resources:
+  # -- Pod requests
+  requests: {
+    "memory": "12288Mi",
+    "cpu": "4000m",
+    "nvidia.com/gpu": 1
+  }
+    # Memory request
+    # memory: 4096Mi
+
+    # CPU request
+    # cpu: 2000m
+
+  # -- Pod limit
+  limits: {
+    "memory": "20480Mi",
+    "cpu": "8000m",
+    "nvidia.com/gpu": 1
+  }
+    # Memory limit
+    # memory: 8192Mi
+
+    # CPU limit
+    # cpu: 4000m
+
+persistentVolume:
+  enabled: true
+  size: 50Gi
+  storageClass: "local-storage"
+  volumeName: "re-advisor-ollama-pv"
+
+updateStrategy:
+  type: "Recreate"
