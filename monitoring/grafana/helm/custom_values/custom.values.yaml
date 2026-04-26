@@ -1,0 +1,59 @@
+deploymentStrategy:
+  type: Recreate
+
+persistence:
+  type: pvc
+  enabled: true
+  storageClassName: local-storage
+  ## (Optional) Use this to bind the claim to an existing PersistentVolume (PV) by name.
+  volumeName: "monitoring-grafana-pv"
+  accessModes:
+    - ReadWriteOnce
+  size: 2Gi
+  # annotations: {}
+  finalizers:
+    - kubernetes.io/pvc-protection
+  # selectorLabels: {}
+  ## Sub-directory of the PV to mount. Can be templated.
+  # subPath: ""
+  ## Name of an existing PVC. Can be templated.
+  # existingClaim:
+  ## Extra labels to apply to a PVC.
+  extraPvcLabels: {}
+  disableWarning: false
+
+admin:
+  ## Name of the secret. Can be templated.
+  existingSecret: "grafana-admin-credentials"
+  userKey: admin-user
+  passwordKey: admin-password
+    
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-server:9090
+      access: proxy
+      isDefault: true
+#    - name: CloudWatch
+#      type: cloudwatch
+#      access: proxy
+#      uid: cloudwatch
+#      editable: false
+#      jsonData:
+#        authType: default
+#        defaultRegion: us-east-1
+#    deleteDatasources: []
+#    - name: Prometheus
+
+namespaceOverride: "monitoring"
+
+grafana.ini:
+  server:
+    # The full URL the user types into their browser
+    root_url: https://grafana.ui.stark.labs
+    # Set this to true if Nginx is handling the SSL/HTTPS 
+    # but talking to Grafana over HTTP internally
+    serve_from_sub_path: false 

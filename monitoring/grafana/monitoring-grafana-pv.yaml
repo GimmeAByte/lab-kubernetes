@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: monitoring-grafana-pv # This is the unique name for this disk in your cluster
+spec:
+  capacity:
+    storage: 2Gi 
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  # Retain ensur
+  persistentVolumeReclaimPolicy: Retain 
+  storageClassName: local-storage # This label connects it to your PVC in values.yaml
+  local:
+    path: /var/lib/monitoring-data/grafana/ # The exact path to your new LVM mount
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - lab-alienware 
